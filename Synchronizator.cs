@@ -15,7 +15,7 @@ namespace FolderSync
 
             var dirHash = directories.Select(GetRelativePath).ToHashSet();
 
-            var fileHash = directories.AsParallel().SelectMany(Directory.EnumerateFiles)
+            var fileHash = directories.SelectMany(Directory.EnumerateFiles).AsParallel()
                .Select(file => (name: GetRelativePath(file), ticks: GetHash(file)))
                .ToHashSet();
 
@@ -38,7 +38,7 @@ namespace FolderSync
                 return Convert.ToHexString(hash);
             }
 
-            string GetRelativePath(string path) => path.Substring(dir.Length).TrimStart('/', '\\');
+            string GetRelativePath(string path) => Path.GetRelativePath(dir, path);
         }
 
         public void Synchronize(string sourcePath, string dstPath)
@@ -53,7 +53,7 @@ namespace FolderSync
                 File.Delete(Path.Combine(dstPath, fileToRemove.file));
             }
 
-            var dirsToRemove = snapshotDst.dirs.Where(x => !snapshotSrc.dirs.Contains(x));
+            var dirsToRemove = snapshotDst.dirs.Where(x => !snapshotSrc.dirs.Contains(x)).OrderByDescending(d => d.Length);
             foreach (var dirToRemove in dirsToRemove)
             {
                 Console.WriteLine("Deleting dir: " + Path.Combine(dstPath, dirToRemove));
