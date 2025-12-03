@@ -41,7 +41,7 @@ namespace FolderSync
             string GetRelativePath(string path) => Path.GetRelativePath(dir, path);
         }
 
-        public void Synchronize(string sourcePath, string dstPath)
+        public static void Synchronize(string sourcePath, string dstPath)
         {
             var snapshotSrc = GetSnapshot(sourcePath);
             var snapshotDst = GetSnapshot(dstPath);

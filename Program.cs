@@ -24,8 +24,7 @@ namespace FolderSync
 
             try
             {
-                Synchronizator synchronizator = new Synchronizator();
-                synchronizator.Synchronize(sourcePath, targetPath);
+                Synchronizator.Synchronize(sourcePath, targetPath);
 
                 return 0;
             }
