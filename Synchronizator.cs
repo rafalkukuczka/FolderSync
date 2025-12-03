@@ -8,6 +8,9 @@ namespace FolderSync
 {
     internal class Synchronizator
     {
+#pragma warning disable IDE0305
+#pragma warning disable IDE0042
+
         public static (HashSet<string> dirs, HashSet<(string file, string tick)> files) GetSnapshot(string dir)
         {
             
@@ -76,4 +79,6 @@ namespace FolderSync
 
         }
     }
+#pragma warning restore IDE0305
+#pragma warning restore IDE0042
 }
