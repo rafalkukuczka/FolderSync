@@ -8,4 +8,5 @@ Folder synchronization. (.net 9.0 command line example project).
 ### Example use: (please, use with **_caution!_**)
 FolderSync.exe c:\temp\src c:\temp\dst
 
-<img width="1041" height="423" alt="image" src="https://github.com/user-attachments/assets/62b379a5-10fe-4f21-bb95-9e7640b125c6" />
+<img width="1102" height="604" alt="image" src="https://github.com/user-attachments/assets/6c5483c3-29ed-485c-a6a1-42400da04b03" />
+
