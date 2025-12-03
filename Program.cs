@@ -4,12 +4,12 @@ namespace FolderSync
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static int Main(string[] args)
         {
             if (args.Length != 2)
             {
                 Console.WriteLine("Usage: FolderSync <source> <destination>");
-                return;
+                return 1;
             }
 
             string sourcePath = args[0];
@@ -26,10 +26,13 @@ namespace FolderSync
             {
                 Synchronizator synchronizator = new Synchronizator();
                 synchronizator.Synchronize(sourcePath, targetPath);
+
+                return 0;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
+                return 2;
             }
             finally { 
                 watch.Stop();
@@ -41,8 +44,8 @@ namespace FolderSync
         {
             Console.WriteLine("Exception:");
 
-            if (e.ExceptionObject is Exception)
-                Console.WriteLine(((Exception)e.ExceptionObject).Message);
+            if (e.ExceptionObject is Exception exception)
+                Console.WriteLine(exception.Message);
             else
                 Console.WriteLine(e.ExceptionObject.ToString());
         }
