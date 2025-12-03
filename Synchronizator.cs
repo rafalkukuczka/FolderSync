@@ -13,7 +13,8 @@ namespace FolderSync
 
         public static (HashSet<string> dirs, HashSet<(string file, string tick)> files) GetSnapshot(string dir)
         {
-            
+            Console.WriteLine("Scaning directory: " + dir);
+
             string[] directories = GetDirectories(dir);
 
             var dirHash = directories.Select(GetRelativePath).ToHashSet();
@@ -50,6 +51,12 @@ namespace FolderSync
             var snapshotDst = GetSnapshot(dstPath);
 
             var filesToRemove = snapshotDst.files.Where(x => !snapshotSrc.files.Contains(x));
+
+            if (filesToRemove.Count() == 0)
+                Console.WriteLine("Deleting files(s)...skipping");
+            else
+                Console.WriteLine($"Deleting {filesToRemove.Count()} file(s)... ");
+
             foreach (var fileToRemove in filesToRemove)
             {
                 Console.WriteLine("Deleting file: " + Path.Combine(dstPath, fileToRemove.file));
@@ -57,6 +64,12 @@ namespace FolderSync
             }
 
             var dirsToRemove = snapshotDst.dirs.Where(x => !snapshotSrc.dirs.Contains(x)).OrderByDescending(d => d.Length);
+
+            if (dirsToRemove.Count() == 0)
+                Console.WriteLine("Deleting dir(s)...skipping");
+            else
+                Console.WriteLine($"Deleting {dirsToRemove.Count()} dir(s)");
+
             foreach (var dirToRemove in dirsToRemove)
             {
                 Console.WriteLine("Deleting dir: " + Path.Combine(dstPath, dirToRemove));
@@ -64,6 +77,12 @@ namespace FolderSync
             }
 
             var dirsToAdd = snapshotSrc.dirs.Where(x => !snapshotDst.dirs.Contains(x));
+
+            if (dirsToAdd.Count() == 0)
+                Console.WriteLine("Adding dir(s)...skipping");
+            else
+                Console.WriteLine($"Adding {dirsToAdd.Count()} dir(s): ");
+
             foreach (var dirToAdd in dirsToAdd)
             {
                 Console.WriteLine("Adding dir: " + Path.Combine(dstPath, dirToAdd));
@@ -71,6 +90,12 @@ namespace FolderSync
             }
 
             var filesToAdd = snapshotSrc.files.Where(x => !snapshotDst.files.Contains(x));
+
+            if (filesToAdd.Count() == 0)
+                Console.WriteLine("Adding file(s)...skipping");
+            else
+                Console.WriteLine($"Adding {filesToAdd.Count()} file(s)");
+
             foreach (var fileToAdd in filesToAdd)
             {
                 Console.WriteLine("Adding file: " + Path.Combine(dstPath, fileToAdd.file));

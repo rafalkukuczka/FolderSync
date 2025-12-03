@@ -18,7 +18,7 @@ namespace FolderSync
             string sourcePath = args[0];
             string targetPath = args[1];
 
-            Console.WriteLine($"Synchronization {sourcePath} to {targetPath}");
+            Console.WriteLine($"Synchronization of {sourcePath} to {targetPath}");
 
             Stopwatch watch = Stopwatch.StartNew();
 
@@ -26,16 +26,19 @@ namespace FolderSync
             {
                 Synchronizator.Synchronize(sourcePath, targetPath);
 
+                watch.Stop();
+                Console.WriteLine($"Synchronization complete in {watch.Elapsed} sec.");
+
                 return 0;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
+                Console.WriteLine($"Synchronization error in {watch.Elapsed} sec.");
                 return 2;
             }
             finally { 
-                watch.Stop();
-                Console.WriteLine($"Synchronization complete in {watch.Elapsed} sec.");
+                
             }
         }
 
