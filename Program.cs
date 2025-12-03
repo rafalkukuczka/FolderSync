@@ -6,6 +6,9 @@ namespace FolderSync
     {
         static int Main(string[] args)
         {
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
+
             if (args.Length != 2)
             {
                 Console.WriteLine("Usage: FolderSync <source> <destination>");
@@ -14,9 +17,6 @@ namespace FolderSync
 
             string sourcePath = args[0];
             string targetPath = args[1];
-
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
-            TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
 
             Console.WriteLine($"Syncing {sourcePath} to {targetPath}");
 
