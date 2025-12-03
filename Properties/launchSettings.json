@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "FolderSync": {
+      "commandName": "Project",
+      "commandLineArgs": "D:\\Dev\\PRDF-Veeam\\Temp\\Src\r\nD:\\Dev\\PRDF-Veeam\\Temp\\Dst"
+    }
+  }
+}
